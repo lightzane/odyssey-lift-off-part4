@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const typeDefs = gql`
   type Query {
@@ -10,7 +10,7 @@ export const typeDefs = gql`
     module(id: ID!): Module!
   }
 
-  "A track is a group of Modules that teaches about a specific topic"
+  # "A track is a group of Modules that teaches about a specific topic"
   type Track {
     id: ID!
     "The track's title"
@@ -31,7 +31,7 @@ export const typeDefs = gql`
     modules: [Module!]!
   }
 
-  "Author of a complete Track or a Module"
+  # "Author of a complete Track or a Module"
   type Author {
     id: ID!
     "Author's first and last name"
@@ -40,7 +40,7 @@ export const typeDefs = gql`
     photo: String
   }
 
-  "A Module is a single unit of teaching. Multiple Modules compose a Track"
+  # "A Module is a single unit of teaching. Multiple Modules compose a Track"
   type Module {
     id: ID!
     "The module's title"
@@ -51,5 +51,20 @@ export const typeDefs = gql`
     content: String
     "The module's video url, for video-based modules"
     videoUrl: String
+  }
+
+  type Mutation {
+    incrementTrackViews(id: ID!): IncrementTrackViewsResponse!
+  }
+
+  type IncrementTrackViewsResponse {
+    "Similar to HTTP status code, represents the status of the mutation"
+    code: Int!
+    "Indicates whether the mutation was successful"
+    success: Boolean!
+    "Human-readable message for the UI"
+    message: String!
+    "Newly updated track after a successful mutation"
+    track: Track
   }
 `;
